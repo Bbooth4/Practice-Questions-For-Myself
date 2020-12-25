@@ -20,7 +20,7 @@ const merge = intervals => {
   }, []);
 };
 
-const param = [[1,3],[2,6],[8,10],[15,18]];
+const param = [[1,3], [2,6], [8,10], [15,18]];
 
 const result = merge(param);
 
