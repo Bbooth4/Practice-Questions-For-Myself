@@ -2,6 +2,7 @@
 
 const directions = ['top', 'left', 'right', 'bottom'];
 
+// add a check for past direction, so that you can't backtrack
 const directionChecker = (currentI, i, board, direction) => ({
   top: i !== 0 ? board[i-1][currentI] : null,
   left: currentI !== 0 ? board[i][currentI-1] : null,
@@ -23,10 +24,18 @@ const indexAddition = {
   bottom: 1
 };
 
-const options = (currentI, i, board, word, progress, directionI) => {
+const directionIgnore = {
+  top: 'bottom',
+  left: 'right',
+  right: 'left',
+  bottom: 'top'
+};
+
+const options = (currentI, i, board, word, progress, directionI, pastSuccessD) => {
   const direction = directions[directionI];
-  console.log({currentI, i, direction});
-  const checked = directionChecker(currentI, i, board, direction);
+  const shouldCheck = directionIgnore[direction] !== pastSuccessD;
+  console.log({currentI, i, direction, pastSuccessD, shouldCheck});
+  const checked = shouldCheck && directionChecker(currentI, i, board, direction);
   console.log({direction, checked, progress, word});
 
   if (checked && checked === word[progress.length]) {
@@ -41,12 +50,12 @@ const options = (currentI, i, board, word, progress, directionI) => {
     console.log('OLD', {currentI, i, direction});
     console.log('NEW', {newCurrentI, newI, progress, word});
 
-    return options(newCurrentI, newI, board, word, progress, 0);
+    return options(newCurrentI, newI, board, word, progress, 0, direction);
   }
 
   console.log('DIRECTIONS', {directionI, direction});
   if (directionI !== directions.length-1) {
-    return options(currentI, i, board, word, progress, directionI+1);
+    return options(currentI, i, board, word, progress, directionI+1, pastSuccessD);
   }
 
   return false;
@@ -89,7 +98,7 @@ const exist = (board, word) => {
   return success;
 };
 
-const word = 'CFBCESE';
+const word = 'CFBCESEEDASA';
 
 const board = [["A","B","C","E"], ["S","F","C","S"], ["A","D","E","E"]];
 
