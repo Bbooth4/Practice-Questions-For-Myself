@@ -1,3 +1,5 @@
+// this works as long as all values within an array are unique
+
 const directions = ['top', 'left', 'right', 'bottom'];
 
 const directionChecker = (currentI, i, board, direction) => ({

@@ -1,8 +1,5 @@
-/**
-  Input: intervals = [[1,3],[2,6],[8,10],[15,18]]
-  Output: [[1,6],[8,10],[15,18]]
-  Explanation: Since intervals [1,3] and [2,6] overlaps, merge them into [1,6].
- */
+// if the values from the previous array overlap with the next one then combine them into 1
+
 const merge = intervals => {
   let shouldSkip = false;
 
