@@ -1,6 +1,6 @@
 // if the values from the previous array overlap with the next one then combine them into 1
 
-const merge = intervals => {
+const overlappingMerge = intervals => {
   let shouldSkip = false;
 
   return intervals.reduce((acc, e, i, a) => {
@@ -19,6 +19,6 @@ const merge = intervals => {
 
 const param = [[1,3], [2,6], [8,10], [15,18]];
 
-const result = merge(param);
+const result = overlappingMerge(param);
 
 console.log(result);
