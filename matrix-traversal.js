@@ -1,3 +1,5 @@
+// this version works for non-unique values
+
 const directions = ['top', 'left', 'right', 'bottom'];
 
 const directionChecker = (currentI, i, board, direction) => ({
@@ -23,26 +25,26 @@ const indexAddition = {
 
 const options = (currentI, i, board, word, progress, directionI) => {
   const direction = directions[directionI];
-  // console.log({currentI, i, direction});
+  console.log({currentI, i, direction});
   const checked = directionChecker(currentI, i, board, direction);
-  // console.log({direction, checked, progress, word});
+  console.log({direction, checked, progress, word});
 
   if (checked && checked === word[progress.length]) {
     progress += checked;
 
-    // console.log({word, progress});
+    console.log({word, progress});
 
     if (progress === word) return true;
 
     const newCurrentI = currentI + directionAddition[direction];
     const newI = i + indexAddition[direction];
-    // console.log('OLD', {currentI, i, direction});
-    // console.log('NEW', {newCurrentI, newI, progress, word});
+    console.log('OLD', {currentI, i, direction});
+    console.log('NEW', {newCurrentI, newI, progress, word});
 
     return options(newCurrentI, newI, board, word, progress, 0);
   }
 
-  // console.log('DIRECTIONS', {directionI, direction});
+  console.log('DIRECTIONS', {directionI, direction});
   if (directionI !== directions.length-1) {
     return options(currentI, i, board, word, progress, directionI+1);
   }
@@ -65,16 +67,19 @@ const exist = (board, word) => {
     // checks directions
     while(!success && directionI !== directions.length-1) {
       let rowI = 0;
-      console.log({firstLetter, rowI, i, row});
       // checks columns
-      while(!success && rowI !== rowLength-1) {
-        const checked = options(rowI, i, board, word, firstLetter, directionI);
+      while(!success && rowI !== rowLength) {
+        console.log({first: firstLetter, rowI, i, row, r: row[rowI]});
+        let checked;
+        if (row[rowI] === firstLetter) {
+          checked = options(rowI, i, board, word, firstLetter, directionI);
+        }
 
         if (checked) success = true;
-        directionI++;
-      }
+        rowI ++;
+      };
 
-
+      directionI++;
     };
 
     console.log('INDEX', i);
@@ -84,7 +89,7 @@ const exist = (board, word) => {
   return success;
 };
 
-const word = 'SE';
+const word = 'CFBCESE';
 
 const board = [["A","B","C","E"], ["S","F","C","S"], ["A","D","E","E"]];
 
