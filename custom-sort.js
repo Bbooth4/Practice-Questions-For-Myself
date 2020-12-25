@@ -1,6 +1,6 @@
 const array = [3, 5, 0, 2, 0, 1, 5, 8];
 
-function sort(arr){
+const sort = arr => {
   for (let i = 0; i < arr.length; i++) {
     for (let j = i+1; j < arr.length; j++) {
       if (arr[i] > arr[j]){
