@@ -14,15 +14,15 @@ const append = (num, char) => {
   const val = num >= 5 ? num % 5 || 0 : num || 0;
 
   if (val <= 3) {
-    const arr = [];
+    let string = '';
     let i = 0;
   
     while(i !== val) {
-      arr.push(char);
+      string += char;
       i++;
     };
 
-    return arr.join('');
+    return string;
   };
 
   return '';
@@ -59,3 +59,4 @@ const intToRoman = num => {
  
 const result = intToRoman(process.argv[2]);
 
+console.log(result);

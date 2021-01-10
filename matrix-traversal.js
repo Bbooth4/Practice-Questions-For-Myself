@@ -85,7 +85,7 @@ const exist = (board, word) => {
         }
 
         if (checked) success = true;
-        rowI ++;
+        rowI++;
       };
 
       directionI++;
